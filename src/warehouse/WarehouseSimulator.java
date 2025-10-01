@@ -49,7 +49,7 @@ public class WarehouseSimulator {
 				for (char instr : instrucciones.toCharArray()) {
 					robot.move(instr);
 					if (robot.isLost())
-						break;
+						break; //si el robot se pierde no lo muevo mas
 				}
 
 				result.append(robot.getReport()).append("\n");

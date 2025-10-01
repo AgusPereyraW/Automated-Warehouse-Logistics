@@ -1,5 +1,6 @@
 package warehouse.data;
 
+//
 /**
  * The Class Robot.
  */
@@ -63,20 +64,17 @@ public class Robot {
      * @param instruction the instruction
      */
     public void move(char instruction) {
-    	Coordinate nextPos = null;
-        switch (instruction) {
-            case 'N' -> nextPos = new Coordinate(currPos.getX(), currPos.getY() + 1);
-            case 'S' -> nextPos = new Coordinate(currPos.getX(), currPos.getY() - 1);
-            case 'E' -> nextPos = new Coordinate(currPos.getX() + 1, currPos.getY());
-            case 'W' -> nextPos = new Coordinate(currPos.getX() - 1, currPos.getY());
-            case 'P' -> {
-                setBusy();
-            }
-            default -> throw new IllegalArgumentException("instrucción inválida: " + instruction);
+        Direction direccion = Direction.fromChar(instruction);
+        Coordinate nextPos = direccion.move(currPos);
+
+        if (direccion == Direction.P) {
+            setBusy();
+            return;
         }
-        if (nextPos != null && !grid.hasObstacle(nextPos) && !lost) {//si hay obstaculo salteo la instruccion, y no vuelvo a actualizar las coordenadas si el robot se perdio
+
+        if (nextPos != null && !grid.hasObstacle(nextPos) && !lost) {
             if (grid.isInside(nextPos)) {
-            	currPos = nextPos;
+                currPos = nextPos;
             } else {
                 setLost();
             }
