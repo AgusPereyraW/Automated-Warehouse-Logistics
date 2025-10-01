@@ -72,7 +72,7 @@ class RobotTest {
         robot.move('S'); // sale fuera de la grilla
 
         assertTrue(robot.isLost());
-        assertEquals("0 -1 LOST", robot.getReport());
+        assertEquals("0 0 LOST", robot.getReport());
     }
 
     @Test

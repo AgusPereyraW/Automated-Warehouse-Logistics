@@ -6,43 +6,58 @@ import warehouse.data.Robot;
 
 import java.util.Scanner;
 
+/**
+ * The Class WarehouseSimulator.
+ */
 public class WarehouseSimulator {
 
-    public static String simulate(String input) {
-        StringBuilder result = new StringBuilder();
-        Scanner scanner = new Scanner(input);
+	/**
+	 * Simulate.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
+	public static String simulate(String input) {
 
-        // tamaño de la grilla
-        int maxX = scanner.nextInt();
-        int maxY = scanner.nextInt();
+		try {
+			StringBuilder result = new StringBuilder();
+			Scanner scanner = new Scanner(input);
 
-        // cantidad de obstáculos
-        int numObstacles = scanner.nextInt();
-        Grid grid = new Grid(maxX, maxY, numObstacles);
+			// tamaño de la grilla
+			int maxX = scanner.nextInt();
+			int maxY = scanner.nextInt();
 
-        // coordenadas de obstáculos
-        for (int i = 0; i < numObstacles; i++) {
-            int ox = scanner.nextInt();
-            int oy = scanner.nextInt();
-            grid.addObstacle(new Coordinate(ox, oy));
-        }
+			// cantidad de obstáculos
+			int numObstacles = scanner.nextInt();
+			Grid grid = new Grid(maxX, maxY, numObstacles);
 
-        // robots
-        while (scanner.hasNext()) {
-            int startX = scanner.nextInt();
-            int startY = scanner.nextInt();
-            String instrucciones = scanner.next();
+			// coordenadas de obstáculos
+			for (int i = 0; i < numObstacles; i++) {
+				int ox = scanner.nextInt();
+				int oy = scanner.nextInt();
+				grid.addObstacle(new Coordinate(ox, oy));
+			}
 
-            Robot robot = new Robot(new Coordinate(startX, startY), grid);
+			// robots
+			while (scanner.hasNext()) {
+				int startX = scanner.nextInt();
+				int startY = scanner.nextInt();
+				String instrucciones = scanner.next();
 
-            for (char instr : instrucciones.toCharArray()) {
-                robot.move(instr);
-                if (robot.isLost()) break;
-            }
+				Robot robot = new Robot(new Coordinate(startX, startY), grid);
 
-            result.append(robot.getReport()).append("\n");
-        }
-        scanner.close();
-        return result.toString().trim();
-    }
+				for (char instr : instrucciones.toCharArray()) {
+					robot.move(instr);
+					if (robot.isLost())
+						break;
+				}
+
+				result.append(robot.getReport()).append("\n");
+			}
+			scanner.close();
+			return result.toString().trim();
+		} catch (Exception e) {
+			return "Error Procesando Input";
+		}
+	}
 }

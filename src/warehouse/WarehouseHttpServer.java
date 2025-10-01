@@ -8,8 +8,17 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * The Class WarehouseHttpServer.
+ */
 public class WarehouseHttpServer {
 
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/simulate", new SimulationHandler());
@@ -18,7 +27,16 @@ public class WarehouseHttpServer {
         server.start();
     }
 
+    /**
+     * The Class SimulationHandler.
+     */
     static class SimulationHandler implements HttpHandler {
+        /**
+         * Handle.
+         *
+         * @param exchange the exchange
+         * @throws IOException Signals that an I/O exception has occurred.
+         */
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             if (!"POST".equals(exchange.getRequestMethod())) {
@@ -27,8 +45,6 @@ public class WarehouseHttpServer {
             }
 
             String input = new String(exchange.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
-
-            //=lógica común
             String output = WarehouseSimulator.simulate(input);
 
             byte[] responseBytes = output.getBytes(StandardCharsets.UTF_8);
