@@ -96,7 +96,7 @@ curl -X POST http://localhost:8080/simulate -d '10 10 2 3 5 7 4 2 3 NNEEPW 6 4 E
 
 - Todos los comandos deben ejecutarse desde la raíz del proyecto.
 
-
+- La grilla no se representa con el Norte hacia arriba (como en un mapa convencional), sino con el **Norte apuntando hacia la derecha**. Esto debe tenerse en cuenta al definir las coordenadas iniciales y las secuencias de instrucciones.
 
 
 
