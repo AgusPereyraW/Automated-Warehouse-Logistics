@@ -1,3 +1,4 @@
-/bin/
 /warehouse/
-*.class
+**/*.class
+/bin/
+/bin/**
